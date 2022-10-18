@@ -1,90 +1,103 @@
-'''Bluefruit_LightShow
+"""Bluefruit_LightShow
 Cycles through 5 different functions that demonstrate various illumination effects with NeoPixels:
 colorWipe, theaterChase, rainbow, rainbowCycle, theaterChaseRainbow
 Developed for The Art of Making: An Introduction to Hands-On System Design and Engineering
 University of Pittsburgh Swanson School of Engineering
 Based on Flora version of code by Joe Samosky
 v1.0 Amelia Glenn 2/10/2022
-'''
 
-import board
-import neopixel
-import digitalio
-import time
-import usb_hid
-from rainbowio import colorwheel
+Last modified:
+Benjamin Esquieres 10/18/2022
+Changes:
+Formatting and comments
+"""
 
-onboard=neopixel.NeoPixel(board.D8,10,brightness=.5)
-strip=neopixel.NeoPixel(board.D6,2,brightness=.5)
+import board  # import the pins on this board
+import neopixel  # import access to neopixels
+from time import sleep  # import sleep function from time library
+from rainbowio import colorwheel  # import colorwheel function from rainbowio library
+
+"""colorwheel() returns colorwheel RGB value as an integer value"""
+
+strip = neopixel.NeoPixel(
+    board.D6, 2, brightness=0.5
+)  # strip is the 2 external neopixels connected to Bluefruit on pin D6
+
 
 def rainbow(pixels):
+    """Cycle through entire RGB spectrum"""
     for j in range(255):
-        for i in range(len(pixels)):
+        for i in range(len(pixels)):  # len() returns length, i.e. len(pixels) returns 2
             idx = int(i + j)
-            pixels[i] = colorwheel(idx & 255)
-        time.sleep(.05)
+            pixels[i] = colorwheel(
+                idx & 255
+            )  # set RGB value of pixel at index i in pixels list to integer value of bitwise AND of idx and 255
+        sleep(0.05)  # wait for 0.05 seconds
 
-def colorWipe(pixels,color):
+
+def colorWipe(pixels, color):
+    """Set pixels RGB values equal to color"""
     for i in range(len(pixels)):
-        pixels[i]=color
-        time.sleep(.25)
-    time.sleep(.25)
+        pixels[i] = color
+        sleep(0.25)
+    sleep(0.25)
 
-def theaterChase(pixels,color,wait):
-    for q in range(0,2,1):
-        for i in range(0,len(pixels),2):
-            pixels[i+q]=color
-            time.sleep(wait)
-    time.sleep(wait)
-    for k in range(0,2,1):
-        for i in range(0,len(pixels),2):
-            pixels[i+k]=(0,0,0)
-            time.sleep(wait)
-    time.sleep(wait)
 
-def theaterChaseX(pixels,color,x):
-    y=0
-    while y<x:
-        theaterChase(pixels,color,.25)
-        y+=1
+def theaterChase(pixels, color, wait):
+    """Sequantially set pixels RGB values equal to color, then to off at interval specified by wait"""
+    for q in range(0, 2, 1):
+        for i in range(0, len(pixels), 2):
+            pixels[i + q] = color
+            sleep(wait)
+    sleep(wait)
+    for k in range(0, 2, 1):
+        for i in range(0, len(pixels), 2):
+            pixels[i + k] = (0, 0, 0)
+            sleep(wait)
+    sleep(wait)
+
+
+def theaterChaseX(pixels, color, x):
+    """Run theaterChase(pixels, color, 0.25) x number of times"""
+    y = 0
+    while y < x:  # loop until y is not less than x
+        theaterChase(pixels, color, 0.25)
+        y += 1  # increment y each time through loop
+
 
 def theaterChaseRainbow(pixels):
-    for j in range(0,255,10):
+    """Sequantially set pixels RGB values equal to every RGB value"""
+    for j in range(0, 255, 10):
         for i in range(len(pixels)):
             idx = int(i + j)
-            color=colorwheel(idx & 255)
-            theaterChase(pixels,color,.05)
+            color = colorwheel(idx & 255)
+            theaterChase(pixels, color, 0.05)
 
-def startShow(showtype,pixels):
-    'a very long if statement bc circuitpy is not quite updated for match case'
-    if showtype==0:
-        for k in range(0,3,1):
-            'three cycles of off/r/g/b'
-            colorWipe(pixels,(0,0,0))
-            colorWipe(pixels,(255,0,0))
-            colorWipe(pixels,(0,255,0))
-            colorWipe(pixels,(0,0,255))
-    elif showtype==4:
-        'white theater chase'
-        theaterChaseX(pixels,(50,50,50),3)
-    elif showtype==5:
-        'red theater chase'
-        theaterChaseX(pixels,(50,0,0),3)
-    elif showtype==6:
-        'blue theater chase'
-        theaterChaseX(pixels,(0,0,50),3)
-    elif showtype==7:
+
+def startShow(showtype, pixels):
+    "Python equivalent of switch case to start light show specified by showType"
+    if showtype == 0:
+        for _ in range(0, 3, 1):  # cycle through off/r/g/b three times
+            colorWipe(pixels, (0, 0, 0))  # off
+            colorWipe(pixels, (255, 0, 0))  # red
+            colorWipe(pixels, (0, 255, 0))  # green
+            colorWipe(pixels, (0, 0, 255))  # blue
+    elif showtype == 4:
+        theaterChaseX(pixels, (50, 50, 50), 3)  # white theater chase
+    elif showtype == 5:
+        theaterChaseX(pixels, (50, 0, 0), 3)  # red theater chase
+    elif showtype == 6:
+        theaterChaseX(pixels, (0, 0, 50), 3)  # blue theater chase
+    elif showtype == 7:
         rainbow(pixels)
-    elif showtype==8:
+    elif showtype == 8:
         theaterChaseRainbow(pixels)
     else:
-        print('error number')
-    time.sleep(.5)
+        print("error number")
+    sleep(0.5)
 
 
-while True:
-    for showType in range(9):
-        print(showType)
-        startShow(showType,strip)
-        if showType>9:
-            showType=0
+while True:  # loop until program terminates, analogous to void loop() in Arduino
+    for showType in range(9):  # for showType = 0, 1, 2, ... , 8
+        print(showType)  # print showType to serial monitor
+        startShow(showType, strip)  # start type of light show specified by showType
