@@ -7,15 +7,15 @@ Based on Flora version of code by Joe Samosky
 v1.0 Amelia Glenn 2/10/2022
 
 Last modified:
-Benjamin Esquieres 10/18/2022
+Benjamin Esquieres 02/17/2023
 Changes:
 Formatting and comments
 """
 
-import board  # import the pins on this board
-import neopixel  # import access to neopixels
-from time import sleep  # import sleep function from time library
-from rainbowio import colorwheel  # import colorwheel function from rainbowio library
+import board  # import board module to access board's pins
+import neopixel  # import neopixel module to access neopixels
+from time import sleep  # import sleep function from time module
+from rainbowio import colorwheel  # import colorwheel function from rainbowio module
 
 """colorwheel() returns colorwheel RGB value as an integer value"""
 
@@ -83,11 +83,11 @@ def startShow(showtype, pixels):
             colorWipe(pixels, (0, 255, 0))  # green
             colorWipe(pixels, (0, 0, 255))  # blue
     elif showtype == 4:
-        theaterChaseX(pixels, (50, 50, 50), 3)  # white theater chase
+        theaterChaseX(pixels, (50, 50, 50), 3)  # (50, 50, 50) -> white theater chase
     elif showtype == 5:
-        theaterChaseX(pixels, (50, 0, 0), 3)  # red theater chase
+        theaterChaseX(pixels, (50, 0, 0), 3)  # (50, 0, 0) -> red theater chase
     elif showtype == 6:
-        theaterChaseX(pixels, (0, 0, 50), 3)  # blue theater chase
+        theaterChaseX(pixels, (0, 0, 50), 3)  # (0, 0, 50) -> blue theater chase
     elif showtype == 7:
         rainbow(pixels)
     elif showtype == 8:
