@@ -6,11 +6,11 @@ v1.1 Amelia Glenn 2/11/2022
 Last modified:
 Benjamin Esquieres 02/17/2023
 Changes:
-Formatting and comments, fix duty cyle code
+Formatting and comments, fix duty cycle code
 """
 
 import board  # import board module to access board's pins
-from analogio import AnalogIn  # import AnalogIn from analogio module to access analog IO
+from analogio import AnalogIn  # import AnalogIn from analogio module to access analog input/output
 import pwmio  # import pwmio module to generate Pulse-width Modulation signals
 
 analog_input = AnalogIn(board.A3)  # analog_input is an analog input connected to pin A3
