@@ -25,13 +25,13 @@ while True:  # loop until program terminates, analogous to void loop() in Arduin
     "Write the digitized analog input value to the serial monitor. To view: Ctrl+Shift+M (PC) or Cmd+Shift+M (Mac)"
 
     """Light brightens"""
-    for i in range(0, MAX_ANALOG_VOLTAGE, 5):  # for i = 0, 5, 10, ... , 65530
-        duty_cycle = int((analog_input / MAX_ANALOG_VOLTAGE) * i)  # scale i by the voltage level reading from analog_input to calculate PWM duty cycle
+    for i in range(0, MAX_ANALOG_VOLTAGE, 15):  # for i = 0, 5, 10, ... , 65530
+        duty_cycle = int((analog_input.value / MAX_ANALOG_VOLTAGE) * i)  # scale i by the voltage level reading from analog_input to calculate PWM duty cycle
         pwm_output.duty_cycle = duty_cycle  # set pwm_output duty cycle to set the brightness of the LED (increase duty cycle to increase brightness)
-        print(f"Duty Cycle: {duty_cycle} ({int(duty_cycle / MAX_ANALOG_VOLTAGE)}%)")  # print duty cycle to serial monitor
+        print(f"Duty Cycle: {duty_cycle} ({int(duty_cycle * 100 / MAX_ANALOG_VOLTAGE)}%)")  # print duty cycle to serial monitor
 
     """Light dims"""
-    for i in range(MAX_ANALOG_VOLTAGE, 0, -5):  # for i = 65535, 65530, 65525, ... , 5
-        duty_cycle = int((analog_input / MAX_ANALOG_VOLTAGE) * i)
+    for i in range(MAX_ANALOG_VOLTAGE, 0, -15):  # for i = 65535, 65530, 65525, ... , 5
+        duty_cycle = int((analog_input.value / MAX_ANALOG_VOLTAGE) * i)
         pwm_output.duty_cycle = duty_cycle
-        print(f"Duty Cycle: {duty_cycle} ({int(duty_cycle / MAX_ANALOG_VOLTAGE)}%)")
+        print(f"Duty Cycle: {duty_cycle} ({int(duty_cycle * 100 / MAX_ANALOG_VOLTAGE)}%)")
