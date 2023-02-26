@@ -1,7 +1,9 @@
-""" Bluefruit_SafetyBeacon
+""" Bluefruit_SafteyBeacon_v1.3.py
 Developed for The Art of Making: An Introduction to Hands-On System Design and Engineering
 University of Pittsburgh Swanson School of Engineering
 v1.1 Amelia Glenn 2/11/2022
+
+Latest version: v1.3
 
 Last modified:
 Benjamin Esquieres 02/17/2023

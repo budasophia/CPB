@@ -1,9 +1,11 @@
-""" Bluefruit_Onboard_Neopixel
+""" Bluefruit_Onboard_Neopixel_v1.3.py
 Illuminates the CPB's built-in NeoPixels (internally connected to pin 8).
 Developed for The Art of Making: An Introduction to Hands-On System Design and Engineering
 University of Pittsburgh Swanson School of Engineering
 v1.2 Amelia Glenn 02/11/2022
 Wheel() colorwheel function based on Adafruit's Flora demo code: https://learn.adafruit.com/pages/5682/elements/1711074/download
+
+Latest version: v1.3
 
 Last modified:
 Benjamin Esquieres 02/17/2023

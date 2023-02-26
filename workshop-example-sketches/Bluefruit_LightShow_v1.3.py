@@ -1,10 +1,12 @@
-"""Bluefruit_LightShow
+""" Bluefruit_LightShow_v1.3.py
 Cycles through 5 different functions that demonstrate various illumination effects with NeoPixels:
 colorWipe, theaterChase, rainbow, rainbowCycle, theaterChaseRainbow
 Developed for The Art of Making: An Introduction to Hands-On System Design and Engineering
 University of Pittsburgh Swanson School of Engineering
 Based on Flora version of code by Joe Samosky
 v1.0 Amelia Glenn 2/10/2022
+
+Latest version: v1.3
 
 Last modified:
 Benjamin Esquieres 02/17/2023
