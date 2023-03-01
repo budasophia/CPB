@@ -6,9 +6,10 @@ v1.1 Amelia Glenn 2/11/2022
 Latest version: v1.4
 
 Last modified:
-Benjamin Esquieres 02/27/2023
-Changes:
-Replace int cast with float print formatting
+Joseph Samosky 03/1/2023
+Changed print statement to print maximum duty cycle reached during one brighten-dim cycle
+Set increment/decrement in for loops to 10, which results in an ~1 Hz flash rate
+Updated comments
 """
 
 import board  # import board module to access board's pins
@@ -27,13 +28,13 @@ while True:  # loop until program terminates, analogous to void loop() in Arduin
     "Write the digitized analog input value to the serial monitor. To view: Ctrl+Shift+M (PC) or Cmd+Shift+M (Mac)"
 
     """Light brightens"""
-    for i in range(0, MAX_ANALOG_VOLTAGE, 15):  # for i = 0, 5, 10, ... , 65530
+    for i in range(0, MAX_ANALOG_VOLTAGE, 10):  # for i = 0, 10, 20, ... , 65530   Step size of 10 determined by iterative trials to achieve an ~ 1 Hz flashing rate
         duty_cycle = int((analog_input.value / MAX_ANALOG_VOLTAGE) * i)  # scale i by the voltage level reading from analog_input to calculate PWM duty cycle
         pwm_output.duty_cycle = duty_cycle  # set pwm_output duty cycle to set the brightness of the LED (increase duty cycle to increase brightness)
-        print(f"Duty Cycle: {duty_cycle} ({(duty_cycle * 100 / MAX_ANALOG_VOLTAGE):.0f}%)")  # print duty cycle to serial monitor
+
+    print(f"Maximum Duty Cycle: {pwm_output.duty_cycle}/{MAX_ANALOG_VOLTAGE} ({(pwm_output.duty_cycle * 100 / MAX_ANALOG_VOLTAGE):.0f}%)")  # print maximum duty cycle to serial monitor
 
     """Light dims"""
-    for i in range(MAX_ANALOG_VOLTAGE, 0, -15):  # for i = 65535, 65530, 65525, ... , 5
-        duty_cycle = int((analog_input.value / MAX_ANALOG_VOLTAGE) * i)
-        pwm_output.duty_cycle = duty_cycle
-        print(f"Duty Cycle: {duty_cycle} ({(duty_cycle * 100 / MAX_ANALOG_VOLTAGE):.0f}%)")
+    for i in range(MAX_ANALOG_VOLTAGE, 0, -10):  # for i = 65535, 65525, 65515, ... , 5
+        duty_cycle = int((analog_input.value / MAX_ANALOG_VOLTAGE) * i)  # scale i by the voltage level reading from analog_input to calculate PWM duty cycle
+        pwm_output.duty_cycle = duty_cycle  # set pwm_output duty cycle to set the brightness of the LED (decrease duty cycle to decrease brightness)
