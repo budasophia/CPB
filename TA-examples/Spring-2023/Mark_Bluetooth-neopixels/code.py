@@ -10,9 +10,13 @@ slide switch. The buttons change the color when advertising.
 """
 
 import time
-from adafruit_circuitplayground.bluefruit import cpb
+# For CPB board functions 
+from adafruit_circuitplayground.bluefruit import cpb            
 
+# BLERadio allows us to initialize bluetooth broadcasting. "BLE" = Bluetooth Low Energy 
 from adafruit_ble import BLERadio
+
+# This special advertising library allows us to "advertise" the current color of the on-board neopixels across Bluetooth 
 from adafruit_ble.advertising.adafruit import AdafruitColor
 
 # The color pickers will cycle through this list with buttons A and B.
@@ -27,13 +31,18 @@ color_options = [0x110000,
                  0x112211,
                  0x111122]
 
+# We intialize a bluetooth radio object that we can use later in the code to broadcast color data 
 ble = BLERadio()
 
-i = 0
+# We'll default the first color to the first hex value in the color array 
 advertisement = AdafruitColor()
+i = 0
 advertisement.color = color_options[i]
+
 cpb.pixels.auto_write = False
+# We'll also fill the on-bord neopixels with the same color that we are broadcasting 
 cpb.pixels.fill(color_options[i])
+
 while True:
     # The first mode is the color selector which broadcasts it's current color to other devices.
     if cpb.switch:
@@ -41,6 +50,7 @@ while True:
         ble.start_advertising(advertisement)
         while cpb.switch:
             last_i = i
+            # This logic handles the button presses to cycle through color options
             if cpb.button_a:
                 i += 1
             if cpb.button_b:
@@ -59,6 +69,7 @@ while True:
     # The second mode listens for color broadcasts and shows the color of the strongest signal.
     else:
         closest = None
+        # RSSI = Received Strength Signal Indicator (dB) 
         closest_rssi = -80
         closest_last_time = 0
         print("Scanning for colors")
