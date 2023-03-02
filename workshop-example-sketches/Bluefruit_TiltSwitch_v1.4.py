@@ -1,4 +1,4 @@
-""" Bluefruit_tiltSwitch_v1.4.py
+""" Bluefruit_TiltSwitch_v1.4.py
 Developed for The Art of Making: An Introduction to Hands-On System Design and Engineering
 University of Pittsburgh Swanson School of Engineering
 v1.1 Amelia Glenn 2/13/2022
