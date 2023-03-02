@@ -3,6 +3,9 @@
 from random import randint
 from time import sleep
 
+import adafruit_gps
+import board
+import busio
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
@@ -12,11 +15,22 @@ from adafruit_circuitplayground.bluefruit import (
 
 COMPLETE_NAME_MAX_LEN = 8  # value found experimentally
 TEMPERATURE_THRESHOLD = 28
+BRIGHTNESS = 0.2
 
 ble = BLERadio()
 uart_server = UARTService()
 uart_advertisement = ProvideServicesAdvertisement(uart_server)
 uart_connection = None
+
+# GPS setup
+uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=10)
+gps = adafruit_gps.GPS(uart, debug=True)  # Use UART/pyserial
+gps.send_command(b"PMTK220,1000")  # Set update rate to 1000 milliseconds (1Hz)
+gps.send_command(
+    b"PMTK314,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
+)  # send GGA sentences at update rate (1Hz)
+
+cpb.pixels.brightness = 0.2
 
 # Color constants
 RED = (255, 0, 0)
@@ -44,6 +58,22 @@ COLOR_ENUM = {
     8: PURPLE,
     9: WHITE,
 }
+
+
+def get_gps_coords() -> list:
+    """
+    Attempt to get latitude and longitude coordinates from GPS
+    Return [latitude, longitude] if successful, [0,0] otherwise
+    """
+    gps_update = gps.update()
+    print(f"GPS update: {gps_update}")
+    if gps_update:
+        if gps.has_fix:
+            print(f"Lat: {gps.latitude:.6f}, Long: {gps.longitude:.6f}")
+            return [gps.latitude, gps.longitude]
+        else:
+            print("GPS does not have fix")
+            return [0, 0]
 
 
 def check_button_press() -> bool:
@@ -92,18 +122,29 @@ def scan_for_distress(timeout: int = 0.1) -> bool:
                 sleep(0.5)
                 print(f"Connected: {uart_connection.connected}")
                 if uart_connection.connected:
+                    cpb.pixels.fill(BLACK)
                     uart_service = uart_connection[UARTService]
                     ble.start_advertising(uart_advertisement)
                     while uart_connection.connected and not check_button_press():
-                        color_num, temperature = (
-                            uart_service.readline().decode("utf-8").strip().split(":")
-                        )
-                        cpb.pixels.fill(COLOR_ENUM[int(color_num)])
-                        print(f"Received temperature: {temperature}")
-                        if ble.connected:
-                            uart_server.write(
-                                f"{temperature}\n"
-                            )  # Write temperature from distress signal to Bluefruit App
+                        try:
+                            color_num, temperature, gps_coords = (
+                                uart_service.readline()
+                                .decode("utf-8")
+                                .strip()
+                                .split(":")
+                            )
+                            for i in range(0, 10, 2):
+                                cpb.pixels[i] = COLOR_ENUM[int(color_num)]
+                            cpb.pixels.show()
+                            print(f"Received temperature: {temperature}")
+                            if ble.connected:
+                                uart_server.write(
+                                    f"{temperature},{gps_coords}\n"
+                                )  # Write temperature from distress signal to Bluefruit App
+                        except Exception as e:
+                            print(f"Error: {e}")
+                            break
+                    cpb.pixels.fill(BLACK)
                     ble.stop_advertising()
                     uart_connection.disconnect()
             break
@@ -116,13 +157,17 @@ def distress_broadcast() -> None:
     ble.start_advertising(uart_advertisement)
     pixel_pos = 0
     color_num = randint(0, 9)
+    color = COLOR_ENUM[color_num]
+    cpb.pixels.fill(BLACK)
     while not check_button_press():
         if ble.connected:
-            cpb.pixels.fill(COLOR_ENUM[color_num])
-            # TODO write GPS
+            cpb.pixels.fill(BLACK)
+            for i in range(0, 10, 2):
+                cpb.pixels[i] = color
+            cpb.pixels.show()
             print("Connected")
-            print(f"Writing {cpb.temperature}\n")
-            uart_server.write(f"{color_num}:{cpb.temperature}\n")
+            print(f"Writing {color_num}:{cpb.temperature}:{get_gps_coords()}\n")
+            uart_server.write(f"{color_num}:{cpb.temperature}:{get_gps_coords()}\n")
             sleep(0.1)
         else:
             cpb.pixels[pixel_pos] = BLACK
