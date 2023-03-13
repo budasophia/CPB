@@ -1,5 +1,4 @@
 # Write your code here :-)
-# Write your code here :-)
 import board  # you always need to import these
 import time  # two to make sure your board functions
 import adafruit_thermistor  # this is for the on-board temperature sensor
@@ -33,11 +32,6 @@ except ImportError:
         from audiopwmio import PWMAudioOut as AudioOut
     except ImportError:
         pass  # not always supported by every board!
-# Enable the speaker
-speaker_enable = digitalio.DigitalInOut(board.SPEAKER_ENABLE)
-speaker_enable.direction = digitalio.Direction.OUTPUT
-speaker_enable.value = True
-
 # Color of the peak pixel.
 PEAK_COLOR = (100, 0, 255)
 CURVE = 2
@@ -73,7 +67,8 @@ def volume_color(volume):
     return 200, volume * (255 // 10), 0
 
 
-mic = audiobusio.PDMIn(board.MICROPHONE_CLOCK, board.MICROPHONE_DATA, 
+
+mic = audiobusio.PDMIn(board.MICROPHONE_CLOCK, board.MICROPHONE_DATA,
 sample_rate=16000, bit_depth=16)
 samples = array.array("H", [0] * NUM_SAMPLES)
 mic.record(samples, len(samples))
@@ -87,7 +82,7 @@ button_A.switch_to_input(pull=digitalio.Pull.DOWN)
 button_B = digitalio.DigitalInOut(board.BUTTON_B)
 button_B.switch_to_input(pull=digitalio.Pull.DOWN)
 
-buzzer = pwmio.PWMOut(board.D2)
+buzzer = pwmio.PWMOut(board.AUDIO)
 OFF = 0
 ON = 2**15
 
@@ -115,7 +110,7 @@ while True:
         board_pixels.fill(0)
         if light.value >= 500:
             board_pixels[9] = (0, 255, 255)
-            buzzer.duty_cycle = ON     
+            buzzer.duty_cycle = ON
         elif magnitude >= 1100:
             board_pixels[9] = (255, 0, 0)
             break
