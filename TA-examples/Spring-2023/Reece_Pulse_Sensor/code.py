@@ -1,4 +1,5 @@
-#Edited Spring 2022 by Eli Wissenbach for The Art of Making#
+#Edited Spring 2023 by Reece Basehore for The Art of Making#
+#Based on edits made by Eli Wissenbach#
 #This program uses a strobing green light external to the Bluefruit#
 #with some data smoothing applied while the buzzer beeps per beat#
 
