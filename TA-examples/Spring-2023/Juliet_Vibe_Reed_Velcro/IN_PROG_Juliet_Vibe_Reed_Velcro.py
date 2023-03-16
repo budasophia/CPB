@@ -23,7 +23,7 @@ velcro=touchio.TouchIn(velcro_pad)
 
 #setting up vibration board (vibe board) to buzz
 while True:
-    if switch.value and velcro.value == False:
+    if (switch.value and velcro.value) == False:
         vibe.value=True
     else
         vibe.value=False
