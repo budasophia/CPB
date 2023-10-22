@@ -32,6 +32,7 @@ I'm using the Spring 2023 folder as an example. For Fall 2023, the directory pat
 4. **Upload your Demo Project Code to the Appropriate Directory**
 
 ![](../media/raw-code_step-2.png)
+![](../media/raw-code_step-2-2.png)
 
 5. **Click into the .py File that you've just Uploaded and Click the "Raw" Button**
 
