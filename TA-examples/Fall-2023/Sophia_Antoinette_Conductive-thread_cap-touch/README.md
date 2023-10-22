@@ -1,16 +1,16 @@
-## (Project Title)
+## CPB TA Demo - Capacitive Touch
 
 ### Use case: 
 
-(text)
+This is a demo of using capacitive touch
 
 ### What it does: 
 
-(text)
+Rudolph's nose lights up when someone touches his antlers or his scarf.
 
 ### How it works:
 
-(text)
+This utilizes capacitive touch
 
 ### Peripherals:
 
