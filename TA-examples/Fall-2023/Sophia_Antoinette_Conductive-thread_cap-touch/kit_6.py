@@ -1,5 +1,5 @@
 #Capacitive Touch Example with Onboard NeoPixels
-#Antoinette Walter -- Last modified 10/10/2023
+#Antoinette Walter, Sophia Buda -- Last modified 10/10/2023
 
 import board #import the pins on this board
 import neopixel #import neopixel
