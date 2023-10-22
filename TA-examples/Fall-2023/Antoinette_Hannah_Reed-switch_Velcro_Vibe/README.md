@@ -10,7 +10,7 @@ Attaches to users back pocket. Will vibrate once the wallet is removed from the 
 
 ### How it works:
 
-A magnet in the wallet activates the reed switch in the system. Once the wallet is taken and the magnetic field is removed, the vibe motor begins vibrating.
+System is attached to user's pocket using conductive velcro. The system will only activate if the conductive velcro is connected. Then, a magnet in the wallet activates the reed switch in the system. Once the wallet is taken and the magnetic field is removed, the vibe motor begins vibrating.
 
 ### Peripherals:
 
