@@ -2,7 +2,7 @@
 
 ### Use case: 
 
-For a user who keeps their wallet in their back pocket and is worried about pickpockets swiping it.
+This is a demo for a wearable device for a user who stores 
 
 ### What it does: 
 
