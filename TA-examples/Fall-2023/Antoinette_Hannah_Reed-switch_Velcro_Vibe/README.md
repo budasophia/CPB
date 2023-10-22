@@ -2,15 +2,15 @@
 
 ### Use case: 
 
-This is a demo for a wearable device for a user who stores 
+This is a demo for a wearable device that helps a user stay alert for pickpockets taking their wallet.
 
 ### What it does: 
 
-Attaches to users back pocket. Will vibrate once the wallet is removed from the pocket to alert the user that it has been stolen.
+The system attaches to a user's back pocket. It will vibrate once the wallet is removed from the pocket to alert the user that it has been stolen.
 
 ### How it works:
 
-System is attached to user's pocket using conductive velcro. The system will only activate if the conductive velcro is connected. Then, a magnet in the wallet activates the reed switch in the system. Once the wallet is taken and the magnetic field is removed, the vibe motor begins vibrating.
+The system is attached to user's pocket using conductive velcro and will only activate if the conductive velcro is connected. Then, a magnet in the wallet activates the reed switch in the system. Once the wallet is taken and the magnetic field is removed, the vibe motor begins vibrating.
 
 ### Peripherals:
 
