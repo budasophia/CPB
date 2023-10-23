@@ -14,14 +14,23 @@ The Myoware Muscle Sensor, reads in the musclar electrical activity and outputs 
 ### Peripherals:
 
 **Digital Inputs:**
+
 None
+
 **Digital Outputs:**
+
 None
+
 **Analog Inputs:**
+
 Myoware Muscle Sensor
+
 **"Analog" (PWM) Outputs:**
+
 None
+
 **Serial Communication:**
+
 On-board Neopixels
 
 This demo system and video were developed for the user-centered design course ENGR 0716/1716 The Art of Making: Hands-On System Design and Engineering at the University of Pittsburgh Swanson School of Engineering © 2023.
