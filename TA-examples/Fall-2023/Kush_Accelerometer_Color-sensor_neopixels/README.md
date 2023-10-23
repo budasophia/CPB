@@ -1,4 +1,4 @@
-## (Digital Paint Mixer)
+## Digital Paint Mixer
 
 ### Use case: 
 
@@ -31,6 +31,8 @@ Speaker
 **Serial Communication:**
 Neopixels
 
+### Demo Video: 
+https://youtu.be/KlpYZOj_yqE
 
 This demo system and video were developed for the user-centered design course ENGR 0716/1716 The Art of Making: Hands-On System Design and Engineering at the University of Pittsburgh Swanson School of Engineering © 2023.
 
