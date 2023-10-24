@@ -1,16 +1,27 @@
-This is a demo of a shirt that tracks your heart rate and lets you and others around you know when it is getting too high!
+## Digital Paint Mixer
 
-The heartrate sensor sends an analog input to the CPB. The circuit python program then converts the input from the heart rate sensor into beats per minute. Then, the CPB flashes the onboard neopixel at the correct frequency to reflect the calculated BPM. Once the BPM gets to be too high, the CPB not only flashes the onboard neopixels red, but also flashes the connected neopixels red through serial I/O communication and flashes the sewn-on LED sequins red using a digital output.
+### Use Case: 
+Help users learn how RGB values work analogous to mixing paint
 
-Analog Input/Sensors:
+### What it Does: 
+
+Captures two separate colors indicated by a light and sound countdown and a camera capture sound, and then mixes their rgb values when the apparatus is shaken accompanied by a swirling water sound and the swirling of the neopixel input indicators
+
+### How it Works: 
+Color Sensor captures the input and sets it to one of two inputs corresponding to onboard buttons. Does countdown and then reads in input Accelerometer detects if the apparatus is shaken, and if so, swirls the onboard neopixels and plays a swirling sound The RGB tuples for the inputs are added and then outputted to the neopixels, with the output set as both inputs afterwards.
+
+**Analog Input/Sensors:**
 Heart Rate Sensor
 
-Digital Output:
+**Digital Output:**
 LED Sequins
 
-Serial I/O:
+**Serial I/O:**
 Onboard Neopixels
 Offboard Neopixels
+
+### Demo Video: 
+https://youtu.be/KlpYZOj_yqE
 
 This demo system and video were developed for the user-centered design course ENGR 0716/1716 The Art of Making: Hands-On System Design and Engineering at the University of Pittsburgh Swanson School of Engineering © 2023.
 
