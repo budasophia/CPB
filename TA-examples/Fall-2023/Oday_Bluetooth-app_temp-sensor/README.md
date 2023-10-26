@@ -18,7 +18,7 @@ The sweater's built in CPB first lets the user select the threshold temperature 
 
 **Digital Outputs:** None
 
-**Analog Inputs:**
+**Analog Inputs: Onboard Temperature Sensor**
 
 **"Analog" (PWM) Outputs:** STEMMA Speaker for Audio Output
 
