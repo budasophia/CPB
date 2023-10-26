@@ -14,7 +14,7 @@ The sweater's built in CPB first lets the user select the threshold temperature 
 
 ### Peripherals:
 
-**Digital Inputs:** Zipper on Sweater acts as a Switch with a Pull DOwn to GND
+**Digital Inputs:** Zipper on Sweater acts as a Switch with a Pull Down Resistor to GND
 
 **Digital Outputs:** None
 
@@ -24,6 +24,8 @@ The sweater's built in CPB first lets the user select the threshold temperature 
 
 **Serial Communication:** Onboard NeoPixels
 
+### Video
+https://youtu.be/8KztE3DbX6A
 
 This demo system and video were developed for the user-centered design course ENGR 0716/1716 The Art of Making: Hands-On System Design and Engineering at the University of Pittsburgh Swanson School of Engineering © 2023.
 
